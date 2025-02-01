@@ -1,7 +1,12 @@
+import { useState, useEffect } from 'react'
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  SortingState,
+  ColumnFiltersState,
   useReactTable,
 } from '@tanstack/react-table'
 import {
@@ -12,6 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { useSale } from '../context/sales-context'
 import { Sale } from '../data/schema'
 
 interface DataTableProps {
@@ -20,11 +26,27 @@ interface DataTableProps {
 }
 
 export function SaleTable({ columns, data }: DataTableProps) {
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const { setTable } = useSale()
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      sorting,
+      columnFilters,
+    },
   })
+
+  useEffect(() => {
+    setTable(table)
+  }, [table, setTable])
 
   return (
     <div className='rounded-md border'>

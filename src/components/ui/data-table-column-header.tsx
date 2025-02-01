@@ -3,6 +3,7 @@ import {
   IconArrowsSort,
   IconSortAscending,
   IconSortDescending,
+  IconFilter,
 } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -12,20 +13,35 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu'
+
+interface SortingLabels {
+  asc: string
+  desc: string
+}
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>
   title: string
+  showFilterOption?: boolean
+  filterOptions?: { label: string; value: string }[]
+  sortingLabels?: SortingLabels
 }
 
 export function DataTableColumnHeader<TData, TValue>({
   column,
   title,
   className,
+  showFilterOption = false,
+  filterOptions = [],
+  sortingLabels,
 }: DataTableColumnHeaderProps<TData, TValue>) {
-  if (!column.getCanSort()) {
+  if (!column.getCanSort() && !showFilterOption) {
     return <div className={cn(className)}>{title}</div>
   }
 
@@ -43,25 +59,53 @@ export function DataTableColumnHeader<TData, TValue>({
               <IconSortDescending className='ml-2 h-4 w-4' />
             ) : column.getIsSorted() === 'asc' ? (
               <IconSortAscending className='ml-2 h-4 w-4' />
+            ) : showFilterOption ? (
+              <IconFilter className='ml-2 h-4 w-4' />
             ) : (
               <IconArrowsSort className='ml-2 h-4 w-4' />
             )}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='start'>
-          <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
-            <IconSortAscending className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-            Ascendente
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
-            <IconSortDescending className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-            Descendente
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.toggleSorting(undefined)}>
-            <IconArrowsSort className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
-            Resetear
-          </DropdownMenuItem>
+          {column.getCanSort() && (
+            <>
+              <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
+                <IconSortAscending className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
+                {sortingLabels?.asc || 'Ascendente'}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
+                <IconSortDescending className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
+                {sortingLabels?.desc || 'Descendente'}
+              </DropdownMenuItem>
+            </>
+          )}
+          {showFilterOption && filterOptions.length > 0 && (
+            <>
+              {column.getCanSort() && <DropdownMenuSeparator />}
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  <IconFilter className='mr-2 h-3.5 w-3.5 text-muted-foreground/70' />
+                  Filtrar
+                </DropdownMenuSubTrigger>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem
+                    onClick={() => column.setFilterValue(undefined)}
+                  >
+                    Todos
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  {filterOptions.map((option) => (
+                    <DropdownMenuItem
+                      key={option.value}
+                      onClick={() => column.setFilterValue([option.value])}
+                    >
+                      {option.label}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuSubContent>
+              </DropdownMenuSub>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

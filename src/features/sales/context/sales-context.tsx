@@ -1,39 +1,51 @@
 import React, { useState } from 'react'
+import { createContext, useContext } from 'react'
+import { Table } from '@tanstack/react-table'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Sale } from '../data/schema'
 
-type SaleDialogType = 'add' | 'edit' | 'delete'
+type OpenType = 'add' | 'edit' | 'delete' | null
 
 interface SaleContextType {
-  open: SaleDialogType | null
-  setOpen: (str: SaleDialogType | null) => void
+  open: OpenType
+  setOpen: (open: OpenType) => void
   currentRow: Sale | null
-  setCurrentRow: React.Dispatch<React.SetStateAction<Sale | null>>
+  setCurrentRow: (row: Sale | null) => void
+  table: Table<Sale> | null
+  setTable: (table: Table<Sale>) => void
 }
 
-const SaleContext = React.createContext<SaleContextType | null>(null)
+const SaleContext = createContext<SaleContextType | undefined>(undefined)
 
 interface Props {
   children: React.ReactNode
 }
 
 export default function SaleProvider({ children }: Props) {
-  const [open, setOpen] = useDialogState<SaleDialogType>(null)
+  const [open, setOpen] = useState<OpenType>(null)
   const [currentRow, setCurrentRow] = useState<Sale | null>(null)
+  const [table, setTable] = useState<Table<Sale> | null>(null)
 
   return (
-    <SaleContext.Provider value={{ open, setOpen, currentRow, setCurrentRow }}>
+    <SaleContext.Provider
+      value={{
+        open,
+        setOpen,
+        currentRow,
+        setCurrentRow,
+        table,
+        setTable,
+      }}
+    >
       {children}
     </SaleContext.Provider>
   )
 }
 
-export const useSale = () => {
-  const saleContext = React.useContext(SaleContext)
-
-  if (!saleContext) {
-    throw new Error('useSale has to be used within <SaleContext>')
+export function useSale() {
+  const context = useContext(SaleContext)
+  if (context === undefined) {
+    throw new Error('useSale must be used within a SaleProvider')
   }
-
-  return saleContext
+  return context
 }
