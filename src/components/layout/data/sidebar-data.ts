@@ -185,6 +185,7 @@ export const sidebarData: SidebarData = {
               title: 'Notificaciones',
               url: '/settings/notifications',
               icon: IconNotification,
+              hidden: true
             },
             {
               title: 'Apariencia',
@@ -195,6 +196,7 @@ export const sidebarData: SidebarData = {
               title: 'Pantalla',
               url: '/settings/display',
               icon: IconBrowserCheck,
+              hidden: true
             },
           ],
         },
