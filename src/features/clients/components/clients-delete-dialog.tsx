@@ -8,6 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { useClients } from '../context/clients-context'
 import { Client } from '../data/schema'
 
 interface Props {
@@ -17,8 +18,10 @@ interface Props {
 }
 
 export function ClientsDeleteDialog({ open, onOpenChange, currentRow }: Props) {
+  const { deleteClient } = useClients()
+
   function onDelete() {
-    console.log('Deleting client:', currentRow.id)
+    deleteClient(currentRow.id)
     onOpenChange(false)
   }
 

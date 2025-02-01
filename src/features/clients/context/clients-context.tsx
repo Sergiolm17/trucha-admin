@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
+import { clients as initialClients } from '../data/clients'
 import { Client } from '../data/schema'
 
 type ClientsDialogType = 'add' | 'edit' | 'delete'
@@ -9,6 +10,10 @@ interface ClientsContextType {
   setOpen: (str: ClientsDialogType | null) => void
   currentRow: Client | null
   setCurrentRow: React.Dispatch<React.SetStateAction<Client | null>>
+  clients: Client[]
+  addClient: (client: Client) => void
+  updateClient: (client: Client) => void
+  deleteClient: (id: string) => void
 }
 
 const ClientsContext = React.createContext<ClientsContextType | null>(null)
@@ -20,10 +25,34 @@ interface Props {
 export default function ClientsProvider({ children }: Props) {
   const [open, setOpen] = useDialogState<ClientsDialogType>(null)
   const [currentRow, setCurrentRow] = useState<Client | null>(null)
+  const [clients, setClients] = useState<Client[]>(initialClients)
+
+  const addClient = (client: Client) => {
+    setClients((prev) => [...prev, client])
+  }
+
+  const updateClient = (client: Client) => {
+    setClients((prev) =>
+      prev.map((item) => (item.id === client.id ? client : item))
+    )
+  }
+
+  const deleteClient = (id: string) => {
+    setClients((prev) => prev.filter((item) => item.id !== id))
+  }
 
   return (
     <ClientsContext.Provider
-      value={{ open, setOpen, currentRow, setCurrentRow }}
+      value={{
+        open,
+        setOpen,
+        currentRow,
+        setCurrentRow,
+        clients,
+        addClient,
+        updateClient,
+        deleteClient,
+      }}
     >
       {children}
     </ClientsContext.Provider>

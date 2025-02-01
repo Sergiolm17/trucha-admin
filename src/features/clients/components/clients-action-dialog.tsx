@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useClients } from '../context/clients-context'
 import { Client, clientSchema } from '../data/schema'
 
 interface Props {
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export function ClientsActionDialog({ open, onOpenChange, currentRow }: Props) {
+  const { addClient, updateClient } = useClients()
   const form = useForm<Client>({
     resolver: zodResolver(clientSchema),
     defaultValues: currentRow || {
@@ -43,8 +45,13 @@ export function ClientsActionDialog({ open, onOpenChange, currentRow }: Props) {
   })
 
   function onSubmit(data: Client) {
-    console.log(data)
+    if (currentRow) {
+      updateClient(data)
+    } else {
+      addClient(data)
+    }
     onOpenChange(false)
+    form.reset()
   }
 
   return (
