@@ -59,7 +59,7 @@ export function CustomerConcentration() {
               fontSize: '12px',
               color: 'var(--muted-foreground)',
             })}
-            cellStyle={(x: number, y: number, ratio: number) => ({
+            cellStyle={(_x: number, _y: number, ratio: number) => ({
               background: `rgb(37, 99, 235, ${ratio})`,
               fontSize: '12px',
               color: ratio > 0.5 ? '#fff' : '#000',

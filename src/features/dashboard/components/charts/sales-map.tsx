@@ -9,7 +9,11 @@ import { ResponsiveContainer } from 'recharts'
 const geoUrl =
   'https://raw.githubusercontent.com/deldersveld/topojson/master/countries/peru/peru-departments.json'
 
-const markers = [
+const markers: Array<{
+  name: string
+  coordinates: [number, number]
+  value: number
+}> = [
   { name: 'Lima', coordinates: [-77.0428, -12.0464], value: 150000 },
   { name: 'Arequipa', coordinates: [-71.5375, -16.409], value: 80000 },
   { name: 'Trujillo', coordinates: [-79.03, -8.1116], value: 60000 },

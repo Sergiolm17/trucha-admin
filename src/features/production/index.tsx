@@ -11,7 +11,7 @@ import { ProductionDialogs } from './components/production-dialogs'
 import { ProductionPrimaryButtons } from './components/production-primary-buttons'
 import { ProductionSummary } from './components/production-summary'
 import { ProductionTable } from './components/production-table'
-import ProductionProvider, { useProduction } from './context/production-context'
+import ProductionProvider from './context/production-context'
 import { productions } from './data/data'
 import { productionListSchema } from './data/schema'
 

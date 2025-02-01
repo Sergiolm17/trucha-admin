@@ -1,7 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
-import { Checkbox } from '@/components/ui/checkbox'
 import LongText from '@/components/long-text'
 import { DataTableColumnHeader } from '../../users/components/data-table-column-header'
 import { clientStatusTypes } from '../data/data'

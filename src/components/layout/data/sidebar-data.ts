@@ -14,13 +14,12 @@ import {
   IconPalette,
   IconServerOff,
   IconSettings,
-  IconTool,
   IconUserCog,
   IconUserOff,
   IconUsers,
   IconPackageImport,
 } from '@tabler/icons-react'
-import { AudioWaveform, Command, GalleryVerticalEnd, LayoutDashboard, Ruler } from 'lucide-react'
+import { AudioWaveform, Command, GalleryVerticalEnd, Ruler } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {

@@ -29,12 +29,12 @@ export function RetentionCohort() {
           xLabels={months}
           yLabels={months.map((m) => `Cohorte ${m}`)}
           cellHeight='40px'
-          cellRender={(x: number, y: number, value: number) => (
+          cellRender={(_x: number, _y: number, value: number) => (
             <div title={`${value}% retención`}>
               {value > 0 ? `${value}%` : ''}
             </div>
           )}
-          cellStyle={(x: number, y: number, value: number) => ({
+          cellStyle={(_x: number, _y: number, value: number) => ({
             background: getColor(value),
             fontSize: '11px',
             color: value >= 80 ? 'black' : 'white',

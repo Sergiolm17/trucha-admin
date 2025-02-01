@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { Card } from '@/components/ui/card'
 
 const data = [
   {
@@ -74,13 +73,13 @@ export function GanttChart() {
           <Bar
             dataKey='start'
             stackId='a'
-            fill={(d: any) => getStatusColor(d.status)}
+            fill={getStatusColor(data[0].status)}
             name='Inicio'
           />
           <Bar
             dataKey='end'
             stackId='a'
-            fill={(d: any) => getStatusColor(d.status)}
+            fill={getStatusColor(data[0].status)}
             name='Fin'
           />
         </BarChart>

@@ -3,7 +3,6 @@ import {
   IconBrowserCheck,
   IconNotification,
   IconPalette,
-  IconTool,
   IconUser,
 } from '@tabler/icons-react'
 import { Separator } from '@/components/ui/separator'

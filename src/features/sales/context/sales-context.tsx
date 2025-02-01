@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { Table } from '@tanstack/react-table'
-import useDialogState from '@/hooks/use-dialog-state'
 import { Sale } from '../data/schema'
 
 type OpenType = 'agregar' | 'editar' | 'eliminar' | 'ver' | null
@@ -15,11 +13,11 @@ interface SaleContextType {
   setTable: (table: Table<Sale>) => void
 }
 
-const SaleContext = createContext<SaleContextType | undefined>(undefined)
-
 interface Props {
   children: React.ReactNode
 }
+
+const SaleContext = createContext<SaleContextType | undefined>(undefined)
 
 export default function SaleProvider({ children }: Props) {
   const [open, setOpen] = useState<OpenType>(null)

@@ -27,7 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Production, productionSchema } from '../data/schema'
+import { Production, productionSchema, sizes } from '../data/schema'
 
 interface Props {
   open: boolean
@@ -35,7 +35,6 @@ interface Props {
   currentRow?: Production
 }
 
-const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 const locations = ['Sede A', 'Sede B', 'Sede C']
 
 export function ProductionActionDialog({
@@ -52,7 +51,7 @@ export function ProductionActionDialog({
       details: [
         {
           id: crypto.randomUUID(),
-          size: '',
+          size: '600gr',
           quantity: 0,
           error_margin: 0,
         },
@@ -144,7 +143,7 @@ export function ProductionActionDialog({
                   onClick={() =>
                     append({
                       id: crypto.randomUUID(),
-                      size: '',
+                      size: '600gr',
                       quantity: 0,
                       error_margin: 0,
                     })

@@ -1,6 +1,5 @@
 import { HeatMapGrid } from 'react-grid-heatmap'
-import { ResponsiveContainer, Tooltip } from 'recharts'
-import { Card } from '@/components/ui/card'
+import { ResponsiveContainer } from 'recharts'
 
 const xLabels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun']
 const yLabels = ['Trucha Arcoiris', 'Trucha Salmón', 'Trucha Dorada']
@@ -25,10 +24,10 @@ export function HeatmapDelays() {
           xLabels={xLabels}
           yLabels={yLabels}
           cellHeight='40px'
-          cellRender={(x: number, y: number, value: number) => (
+          cellRender={(_x: number, _y: number, value: number) => (
             <div title={`${value} días de retraso`}>{value}</div>
           )}
-          cellStyle={(x: number, y: number, value: number) => ({
+          cellStyle={(_x: number, _y: number, value: number) => ({
             background: getColor(value),
             fontSize: '11px',
             color: value > 2 ? 'white' : 'black',
