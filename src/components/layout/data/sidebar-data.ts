@@ -19,7 +19,7 @@ import {
   IconUserOff,
   IconUsers,
 } from '@tabler/icons-react'
-import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
+import { AudioWaveform, Command, GalleryVerticalEnd, LayoutDashboard, Ruler } from 'lucide-react'
 import { type SidebarData } from '../types'
 
 export const sidebarData: SidebarData = {
@@ -79,6 +79,11 @@ export const sidebarData: SidebarData = {
           url: '/chats',
           badge: '3',
           icon: IconMessages,
+        },
+        {
+          title: 'Tallas',
+          url: '/sizes',
+          icon: Ruler,
         },
       ],
     },
