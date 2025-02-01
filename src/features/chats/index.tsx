@@ -66,7 +66,7 @@ export default function Chats() {
         <Search />
         <div className='ml-auto flex items-center space-x-4'>
           <ThemeSwitch />
-          <ProfileDropdown />
+          <ProfileDropdown hidden={true} />
         </div>
       </Header>
 

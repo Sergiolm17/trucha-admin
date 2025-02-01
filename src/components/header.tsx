@@ -17,7 +17,7 @@ export function Header() {
           </div>
           <nav className='flex items-center space-x-2'>
             <ThemeSwitch />
-            <ProfileDropdown />
+            <ProfileDropdown hidden={true} />
           </nav>
         </div>
       </div>

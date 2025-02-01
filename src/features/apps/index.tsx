@@ -54,7 +54,7 @@ export default function Apps() {
         <Search />
         <div className='ml-auto flex items-center gap-4'>
           <ThemeSwitch />
-          <ProfileDropdown />
+          <ProfileDropdown hidden={true} />
         </div>
       </Header>
 
