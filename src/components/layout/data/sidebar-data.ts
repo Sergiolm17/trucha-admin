@@ -91,6 +91,11 @@ export const sidebarData: SidebarData = {
           url: '/production',
           icon: IconPackageImport,
         },
+        {
+          title: 'Ventas',
+          url: '/sales',
+          icon: IconPackageImport,
+        },
       ],
     },
     {
