@@ -1,6 +1,8 @@
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Row } from '@tanstack/react-table'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { cn } from '@/lib/utils'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -8,9 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useClients } from '../context/clients-context'
+import { clientStatusTypes } from '../data/data'
 import { Client } from '../data/schema'
 
 interface ClientRowActionsProps {
@@ -18,7 +24,7 @@ interface ClientRowActionsProps {
 }
 
 export function ClientRowActions({ row }: ClientRowActionsProps) {
-  const { setOpen, setCurrentRow } = useClients()
+  const { setOpen, setCurrentRow, updateClient } = useClients()
   return (
     <>
       <DropdownMenu modal={false}>
@@ -43,6 +49,33 @@ export function ClientRowActions({ row }: ClientRowActionsProps) {
               <IconEdit size={16} />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Cambiar Estado</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              {Array.from(clientStatusTypes.entries()).map(
+                ([status, color]) => (
+                  <DropdownMenuItem
+                    key={status}
+                    onClick={() => {
+                      const updatedClient = {
+                        ...row.original,
+                        status,
+                        updatedAt: new Date(),
+                      }
+                      updateClient(updatedClient)
+                    }}
+                  >
+                    <Badge
+                      variant='outline'
+                      className={cn('w-full justify-start capitalize', color)}
+                    >
+                      {status}
+                    </Badge>
+                  </DropdownMenuItem>
+                )
+              )}
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {

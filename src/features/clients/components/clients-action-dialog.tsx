@@ -18,7 +18,15 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useClients } from '../context/clients-context'
+import { clientStatusTypes } from '../data/data'
 import { Client, clientSchema } from '../data/schema'
 
 interface Props {
@@ -38,7 +46,7 @@ export function ClientsActionDialog({ open, onOpenChange, currentRow }: Props) {
       email: '',
       phoneNumber: '',
       company: '',
-      status: 'active',
+      status: 'activo',
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -139,6 +147,34 @@ export function ClientsActionDialog({ open, onOpenChange, currentRow }: Props) {
                   <FormControl>
                     <Input placeholder='Empresa S.A.C.' {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='status'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Estado</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Selecciona un estado' />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Array.from(clientStatusTypes.keys()).map((status) => (
+                        <SelectItem key={status} value={status}>
+                          {status.charAt(0).toUpperCase() + status.slice(1)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

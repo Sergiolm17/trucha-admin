@@ -1,10 +1,10 @@
 import { z } from 'zod'
 
 const clientStatusSchema = z.union([
-  z.literal('active'),
-  z.literal('inactive'),
-  z.literal('pending'),
-  z.literal('blocked'),
+  z.literal('activo'),
+  z.literal('inactivo'),
+  z.literal('pendiente'),
+  z.literal('bloqueado'),
 ])
 export type ClientStatus = z.infer<typeof clientStatusSchema>
 

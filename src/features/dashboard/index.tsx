@@ -1,11 +1,5 @@
+import { DownloadIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
@@ -13,10 +7,104 @@ import { TopNav } from '@/components/layout/top-nav'
 import { ProfileDropdown } from '@/components/profile-dropdown'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { Overview } from './components/overview'
-import { RecentSales } from './components/recent-sales'
+import { AccountsReceivableStatus } from './components/accounts-receivable-status'
+import { CustomerConcentration } from './components/customer-concentration'
+import { CustomersDashboard } from './components/customers-dashboard'
+import { FinanceDashboard } from './components/finance-dashboard'
+import { KeyMetricsScorecard } from './components/key-metrics-scorecard'
+import { ProductionDashboard } from './components/production-dashboard'
+import { ProductionVsSalesBySize } from './components/production-vs-sales-by-size'
+import { RisksDashboard } from './components/risks-dashboard'
+import { SalesDashboard } from './components/sales-dashboard'
+import { SalesVsProductionTrend } from './components/sales-vs-production-trend'
+import { DashboardProvider, useDashboard } from './context/dashboard-context'
 
-export default function Dashboard() {
+const topNav = [
+  {
+    title: 'Dashboard',
+    href: '/',
+    isActive: true,
+    disabled: false,
+  },
+  {
+    title: 'Producción',
+    href: '/production',
+    isActive: false,
+    disabled: false,
+  },
+  {
+    title: 'Ventas',
+    href: '/sales',
+    isActive: false,
+    disabled: false,
+  },
+  {
+    title: 'Finanzas',
+    href: '/finance',
+    isActive: false,
+    disabled: false,
+  },
+  {
+    title: 'Clientes',
+    href: '/customers',
+    isActive: false,
+    disabled: false,
+  },
+]
+
+function DashboardContent() {
+  const { data } = useDashboard()
+
+  const handleDownloadReport = () => {
+    const now = new Date()
+    const formattedDate = now.toLocaleDateString('es-PE', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+
+    const reportContent = `
+REPORTE DE DASHBOARD - ${formattedDate}
+
+PRODUCCIÓN
+- Lotes Activos: ${data.production.activeLots}
+- Producción Total: ${data.production.totalProduction} kg
+- Capacidad Utilizada: ${((data.production.totalProduction / data.production.maxCapacity) * 100).toFixed(1)}%
+- Retraso Promedio: ${data.production.averageDelay} días
+
+VENTAS
+- Ventas Totales: S/ ${data.sales.totalSales.toLocaleString()}
+- Crecimiento: ${data.sales.salesGrowth}%
+- Clientes Activos: ${data.sales.activeClients}
+
+FINANZAS
+- Ingresos Mensuales: S/ ${data.finance.monthlyIncome.toLocaleString()}
+- Gastos Operativos: S/ ${data.finance.operatingExpenses.toLocaleString()}
+- Cuentas por Cobrar: S/ ${data.finance.receivables.total.toLocaleString()}
+- Vencidas: S/ ${data.finance.receivables.overdue.toLocaleString()}
+
+CLIENTES
+- Retención Promedio: ${data.customers.averageRetention}%
+- CLV Promedio: S/ ${data.customers.averageClv.toLocaleString()}
+- Frecuencia de Compra: ${data.customers.purchaseFrequency} veces/mes
+
+RIESGOS
+- Alertas Activas: ${data.risks.activeAlerts}
+- Nivel de Riesgo: ${data.risks.riskLevel}
+- Acciones Pendientes: ${data.risks.pendingActions}
+`
+
+    const blob = new Blob([reportContent], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `reporte-dashboard-${formattedDate}.txt`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <>
       {/* ===== Top Heading ===== */}
@@ -34,153 +122,53 @@ export default function Dashboard() {
         <div className='mb-2 flex items-center justify-between space-y-2'>
           <h1 className='text-2xl font-bold tracking-tight'>Dashboard</h1>
           <div className='flex items-center space-x-2'>
-            <Button>Download</Button>
+            <Button onClick={handleDownloadReport}>
+              <DownloadIcon className='mr-2 h-4 w-4' />
+              Descargar Reporte
+            </Button>
           </div>
         </div>
-        <Tabs
-          orientation='vertical'
-          defaultValue='overview'
-          className='space-y-4'
-        >
+
+        <Tabs defaultValue='overview' className='space-y-4'>
           <div className='w-full overflow-x-auto pb-2'>
             <TabsList>
-              <TabsTrigger value='overview'>Overview</TabsTrigger>
-              <TabsTrigger value='analytics' disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value='reports' disabled>
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value='notifications' disabled>
-                Notifications
-              </TabsTrigger>
+              <TabsTrigger value='overview'>General</TabsTrigger>
+              <TabsTrigger value='production'>Producción</TabsTrigger>
+              <TabsTrigger value='sales'>Ventas</TabsTrigger>
+              <TabsTrigger value='finance'>Finanzas</TabsTrigger>
+              <TabsTrigger value='customers'>Clientes</TabsTrigger>
+              <TabsTrigger value='risks'>Riesgos</TabsTrigger>
             </TabsList>
           </div>
+
           <TabsContent value='overview' className='space-y-4'>
-            <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-              <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>
-                    Total Revenue
-                  </CardTitle>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    className='h-4 w-4 text-muted-foreground'
-                  >
-                    <path d='M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className='text-2xl font-bold'>$45,231.89</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +20.1% from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>
-                    Subscriptions
-                  </CardTitle>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    className='h-4 w-4 text-muted-foreground'
-                  >
-                    <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
-                    <circle cx='9' cy='7' r='4' />
-                    <path d='M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75' />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className='text-2xl font-bold'>+2350</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +180.1% from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>Sales</CardTitle>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    className='h-4 w-4 text-muted-foreground'
-                  >
-                    <rect width='20' height='14' x='2' y='5' rx='2' />
-                    <path d='M2 10h20' />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className='text-2xl font-bold'>+12,234</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +19% from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>
-                    Active Now
-                  </CardTitle>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    className='h-4 w-4 text-muted-foreground'
-                  >
-                    <path d='M22 12h-4l-3 9L9 3l-3 9H2' />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className='text-2xl font-bold'>+573</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +201 since last hour
-                  </p>
-                </CardContent>
-              </Card>
+            <KeyMetricsScorecard />
+            <div className='grid gap-8 md:grid-cols-2'>
+              <SalesVsProductionTrend />
+              <ProductionVsSalesBySize />
+              <AccountsReceivableStatus />
+              <CustomerConcentration />
             </div>
-            <div className='grid grid-cols-1 gap-4 lg:grid-cols-7'>
-              <Card className='col-span-1 lg:col-span-4'>
-                <CardHeader>
-                  <CardTitle>Overview</CardTitle>
-                </CardHeader>
-                <CardContent className='pl-2'>
-                  <Overview />
-                </CardContent>
-              </Card>
-              <Card className='col-span-1 lg:col-span-3'>
-                <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
-                  <CardDescription>
-                    You made 265 sales this month.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <RecentSales />
-                </CardContent>
-              </Card>
-            </div>
+          </TabsContent>
+
+          <TabsContent value='production' className='space-y-4'>
+            <ProductionDashboard />
+          </TabsContent>
+
+          <TabsContent value='sales' className='space-y-4'>
+            <SalesDashboard />
+          </TabsContent>
+
+          <TabsContent value='finance' className='space-y-4'>
+            <FinanceDashboard />
+          </TabsContent>
+
+          <TabsContent value='customers' className='space-y-4'>
+            <CustomersDashboard />
+          </TabsContent>
+
+          <TabsContent value='risks' className='space-y-4'>
+            <RisksDashboard />
           </TabsContent>
         </Tabs>
       </Main>
@@ -188,29 +176,10 @@ export default function Dashboard() {
   )
 }
 
-const topNav = [
-  {
-    title: 'Overview',
-    href: 'dashboard/overview',
-    isActive: true,
-    disabled: false,
-  },
-  {
-    title: 'Customers',
-    href: 'dashboard/customers',
-    isActive: false,
-    disabled: true,
-  },
-  {
-    title: 'Products',
-    href: 'dashboard/products',
-    isActive: false,
-    disabled: true,
-  },
-  {
-    title: 'Settings',
-    href: 'dashboard/settings',
-    isActive: false,
-    disabled: true,
-  },
-]
+export function Dashboard() {
+  return (
+    <DashboardProvider>
+      <DashboardContent />
+    </DashboardProvider>
+  )
+}
