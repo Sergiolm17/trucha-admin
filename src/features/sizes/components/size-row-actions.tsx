@@ -10,6 +10,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useSizes } from '../context/sizes-context'
 import { Size } from '../data/schema'
 
 interface SizeRowActionsProps {
@@ -17,6 +18,19 @@ interface SizeRowActionsProps {
 }
 
 export function SizeRowActions({ row }: SizeRowActionsProps) {
+  const { setOpen, setCurrentRow } = useSizes()
+  const size = row.original
+
+  const handleEdit = () => {
+    setCurrentRow(size)
+    setOpen('edit')
+  }
+
+  const handleDelete = () => {
+    setCurrentRow(size)
+    setOpen('delete')
+  }
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -29,14 +43,14 @@ export function SizeRowActions({ row }: SizeRowActionsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-[160px]'>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleEdit}>
           Editar
           <DropdownMenuShortcut>
             <IconEdit size={16} />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className='text-red-600'>
+        <DropdownMenuItem onClick={handleDelete} className='text-red-600'>
           Eliminar
           <DropdownMenuShortcut>
             <IconTrash size={16} />

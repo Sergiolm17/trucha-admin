@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useSizes } from '../context/sizes-context'
 import { Size, sizeSchema } from '../data/schema'
 
 interface Props {
@@ -34,6 +35,8 @@ interface Props {
 }
 
 export function SizesActionDialog({ open, onOpenChange, currentRow }: Props) {
+  const { addSize, updateSize } = useSizes()
+
   const form = useForm<Size>({
     resolver: zodResolver(sizeSchema),
     defaultValues: currentRow || {
@@ -46,7 +49,12 @@ export function SizesActionDialog({ open, onOpenChange, currentRow }: Props) {
   })
 
   function onSubmit(data: Size) {
-    console.log(data)
+    if (currentRow) {
+      updateSize(data)
+    } else {
+      addSize(data)
+    }
+    form.reset()
     onOpenChange(false)
   }
 
