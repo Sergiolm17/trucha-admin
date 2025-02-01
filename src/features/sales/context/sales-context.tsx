@@ -4,7 +4,7 @@ import { Table } from '@tanstack/react-table'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Sale } from '../data/schema'
 
-type OpenType = 'agregar' | 'editar' | 'eliminar' | null
+type OpenType = 'agregar' | 'editar' | 'eliminar' | 'ver' | null
 
 interface SaleContextType {
   open: OpenType

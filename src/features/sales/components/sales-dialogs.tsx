@@ -11,6 +11,7 @@ import {
 import { useSale } from '../context/sales-context'
 import { Sale } from '../data/schema'
 import { SaleActionDialog } from './sales-action-dialog'
+import { SaleViewDialog } from './sales-view-dialog'
 
 export function SaleDialogs() {
   const { open, setOpen, currentRow, setCurrentRow } = useSale()
@@ -26,6 +27,14 @@ export function SaleDialogs() {
     <>
       <SaleActionDialog
         open={open === 'agregar' || open === 'editar'}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) handleClose()
+        }}
+        currentRow={currentSale}
+      />
+
+      <SaleViewDialog
+        open={open === 'ver'}
         onOpenChange={(isOpen) => {
           if (!isOpen) handleClose()
         }}

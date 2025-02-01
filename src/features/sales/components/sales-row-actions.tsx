@@ -1,5 +1,5 @@
 import { Row } from '@tanstack/react-table'
-import { IconDots, IconEdit, IconTrash } from '@tabler/icons-react'
+import { IconDots, IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -20,15 +20,28 @@ export function SaleRowActions({ row }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
+        <Button
+          variant='ghost'
+          className='flex h-8 w-8 p-0 data-[state=open]:bg-muted'
+        >
           <IconDots className='h-4 w-4' />
+          <span className='sr-only'>Abrir menú</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
+      <DropdownMenuContent align='end' className='w-[160px]'>
         <DropdownMenuItem
           onClick={() => {
-            setOpen('editar')
             setCurrentRow(row.original)
+            setOpen('ver')
+          }}
+        >
+          <IconEye className='mr-2 h-4 w-4' />
+          Ver
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            setCurrentRow(row.original)
+            setOpen('editar')
           }}
         >
           <IconEdit className='mr-2 h-4 w-4' />
@@ -36,10 +49,10 @@ export function SaleRowActions({ row }: Props) {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            setOpen('eliminar')
             setCurrentRow(row.original)
+            setOpen('eliminar')
           }}
-          className='text-destructive'
+          className='text-destructive focus:text-destructive'
         >
           <IconTrash className='mr-2 h-4 w-4' />
           Eliminar
