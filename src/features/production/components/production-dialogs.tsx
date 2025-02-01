@@ -11,6 +11,7 @@ import {
 import { useProduction } from '../context/production-context'
 import { Production } from '../data/schema'
 import { ProductionActionDialog } from './production-action-dialog'
+import { ProductionViewDialog } from './production-view-dialog'
 
 export function ProductionDialogs() {
   const { open, setOpen, currentRow, setCurrentRow } = useProduction()
@@ -24,6 +25,14 @@ export function ProductionDialogs() {
 
   return (
     <>
+      <ProductionViewDialog
+        open={open === 'view'}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) handleClose()
+        }}
+        currentRow={currentProduction}
+      />
+
       <ProductionActionDialog
         open={open === 'add' || open === 'edit'}
         onOpenChange={(isOpen) => {

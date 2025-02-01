@@ -1,5 +1,5 @@
 import { Row } from '@tanstack/react-table'
-import { IconDots, IconEdit, IconTrash } from '@tabler/icons-react'
+import { IconDots, IconEdit, IconEye, IconTrash } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -25,6 +25,15 @@ export function ProductionRowActions({ row }: Props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
+        <DropdownMenuItem
+          onClick={() => {
+            setOpen('view')
+            setCurrentRow(row.original)
+          }}
+        >
+          <IconEye className='mr-2 h-4 w-4' />
+          Ver
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             setOpen('edit')

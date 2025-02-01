@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useDialogState from '@/hooks/use-dialog-state'
 import { Production } from '../data/schema'
 
-type ProductionDialogType = 'add' | 'edit' | 'delete'
+type ProductionDialogType = 'add' | 'edit' | 'delete' | 'view'
 
 interface ProductionContextType {
   open: ProductionDialogType | null
