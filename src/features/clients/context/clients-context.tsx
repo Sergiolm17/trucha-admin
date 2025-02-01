@@ -3,7 +3,7 @@ import useDialogState from '@/hooks/use-dialog-state'
 import { clients as initialClients } from '../data/clients'
 import { Client } from '../data/schema'
 
-type ClientsDialogType = 'add' | 'edit' | 'delete'
+type ClientsDialogType = 'agregar' | 'editar' | 'eliminar'
 
 interface ClientsContextType {
   open: ClientsDialogType | null

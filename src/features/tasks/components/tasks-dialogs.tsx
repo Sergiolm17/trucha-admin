@@ -9,24 +9,24 @@ export function TasksDialogs() {
   return (
     <>
       <TasksMutateDrawer
-        key='task-create'
-        open={open === 'create'}
-        onOpenChange={() => setOpen('create')}
+        key='task-crear'
+        open={open === 'crear'}
+        onOpenChange={() => setOpen('crear')}
       />
 
       <TasksImportDialog
-        key='tasks-import'
-        open={open === 'import'}
-        onOpenChange={() => setOpen('import')}
+        key='tasks-importar'
+        open={open === 'importar'}
+        onOpenChange={() => setOpen('importar')}
       />
 
       {currentRow && (
         <>
           <TasksMutateDrawer
-            key={`task-update-${currentRow.id}`}
-            open={open === 'update'}
+            key={`task-actualizar-${currentRow.id}`}
+            open={open === 'actualizar'}
             onOpenChange={() => {
-              setOpen('update')
+              setOpen('actualizar')
               setTimeout(() => {
                 setCurrentRow(null)
               }, 500)
@@ -35,11 +35,11 @@ export function TasksDialogs() {
           />
 
           <ConfirmDialog
-            key='task-delete'
+            key='task-eliminar'
             destructive
-            open={open === 'delete'}
+            open={open === 'eliminar'}
             onOpenChange={() => {
-              setOpen('delete')
+              setOpen('eliminar')
               setTimeout(() => {
                 setCurrentRow(null)
               }, 500)
@@ -50,7 +50,7 @@ export function TasksDialogs() {
                 setCurrentRow(null)
               }, 500)
               toast({
-                title: 'The following task has been deleted:',
+                title: 'La siguiente tarea ha sido eliminada:',
                 description: (
                   <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
                     <code className='text-white'>
@@ -61,15 +61,15 @@ export function TasksDialogs() {
               })
             }}
             className='max-w-md'
-            title={`Delete this task: ${currentRow.id} ?`}
+            title={`¿Eliminar esta tarea: ${currentRow.id}?`}
             desc={
               <>
-                You are about to delete a task with the ID{' '}
+                Estás a punto de eliminar una tarea con el ID{' '}
                 <strong>{currentRow.id}</strong>. <br />
-                This action cannot be undone.
+                Esta acción no se puede deshacer.
               </>
             }
-            confirmText='Delete'
+            confirmText='Eliminar'
           />
         </>
       )}

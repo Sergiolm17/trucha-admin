@@ -25,7 +25,7 @@ export function SaleDialogs() {
   return (
     <>
       <SaleActionDialog
-        open={open === 'add' || open === 'edit'}
+        open={open === 'agregar' || open === 'editar'}
         onOpenChange={(isOpen) => {
           if (!isOpen) handleClose()
         }}
@@ -33,7 +33,7 @@ export function SaleDialogs() {
       />
 
       <AlertDialog
-        open={open === 'delete'}
+        open={open === 'eliminar'}
         onOpenChange={(isOpen) => {
           if (!isOpen) handleClose()
         }}

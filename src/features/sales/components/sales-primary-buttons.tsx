@@ -41,7 +41,7 @@ export function SalePrimaryButtons() {
 
   return (
     <div className='flex items-center space-x-2'>
-      <Button onClick={() => setOpen('add')}>
+      <Button onClick={() => setOpen('agregar')}>
         <IconPlus className='mr-2 h-4 w-4' />
         Nueva Venta
       </Button>

@@ -6,7 +6,7 @@ export function ClientsPrimaryButtons() {
   const { setOpen } = useClients()
   return (
     <div className='flex gap-2'>
-      <Button className='space-x-1' onClick={() => setOpen('add')}>
+      <Button className='space-x-1' onClick={() => setOpen('agregar')}>
         <span>Nuevo Cliente</span> <IconUserPlus size={18} />
       </Button>
     </div>

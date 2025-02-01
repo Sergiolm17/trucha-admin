@@ -51,32 +51,32 @@ export const sidebarData: SidebarData = {
       title: 'General',
       items: [
         {
-          title: 'Dashboard',
+          title: 'Panel',
           url: '/',
           icon: IconLayoutDashboard,
         },
         {
-          title: 'Tasks',
+          title: 'Tareas',
           url: '/tasks',
           icon: IconChecklist,
         },
         {
-          title: 'Clients',
+          title: 'Clientes',
           url: '/clients',
           icon: IconUsers,
         },
         {
-          title: 'Users',
+          title: 'Usuarios',
           url: '/users',
           icon: IconUsers,
         },
         {
-          title: 'Apps',
+          title: 'Aplicaciones',
           url: '/apps',
           icon: IconPackages,
         },
         {
-          title: 'Chats',
+          title: 'Mensajes',
           url: '/chats',
           badge: '3',
           icon: IconMessages,
@@ -99,60 +99,60 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'Pages',
+      title: 'Páginas',
       items: [
         {
-          title: 'Auth',
+          title: 'Autenticación',
           icon: IconLockAccess,
           items: [
             {
-              title: 'Sign In',
+              title: 'Iniciar Sesión',
               url: '/sign-in',
             },
             {
-              title: 'Sign In (2 Col)',
+              title: 'Iniciar Sesión (2 Col)',
               url: '/sign-in-2',
             },
             {
-              title: 'Sign Up',
+              title: 'Registrarse',
               url: '/sign-up',
             },
             {
-              title: 'Forgot Password',
+              title: 'Olvidé mi Contraseña',
               url: '/forgot-password',
             },
             {
-              title: 'OTP',
+              title: 'Código OTP',
               url: '/otp',
             },
           ],
         },
         {
-          title: 'Errors',
+          title: 'Errores',
           icon: IconBug,
           items: [
             {
-              title: 'Unauthorized',
+              title: 'No Autorizado',
               url: '/401',
               icon: IconLock,
             },
             {
-              title: 'Forbidden',
+              title: 'Prohibido',
               url: '/403',
               icon: IconUserOff,
             },
             {
-              title: 'Not Found',
+              title: 'No Encontrado',
               url: '/404',
               icon: IconError404,
             },
             {
-              title: 'Internal Server Error',
+              title: 'Error del Servidor',
               url: '/500',
               icon: IconServerOff,
             },
             {
-              title: 'Maintenance Error',
+              title: 'Error de Mantenimiento',
               url: '/503',
               icon: IconBarrierBlock,
             },
@@ -161,41 +161,41 @@ export const sidebarData: SidebarData = {
       ],
     },
     {
-      title: 'Other',
+      title: 'Otros',
       items: [
         {
-          title: 'Settings',
+          title: 'Configuración',
           icon: IconSettings,
           items: [
             {
-              title: 'Profile',
+              title: 'Perfil',
               url: '/settings',
               icon: IconUserCog,
             },
             {
-              title: 'Account',
+              title: 'Cuenta',
               url: '/settings/account',
               icon: IconTool,
             },
             {
-              title: 'Appearance',
+              title: 'Apariencia',
               url: '/settings/appearance',
               icon: IconPalette,
             },
             {
-              title: 'Notifications',
+              title: 'Notificaciones',
               url: '/settings/notifications',
               icon: IconNotification,
             },
             {
-              title: 'Display',
+              title: 'Pantalla',
               url: '/settings/display',
               icon: IconBrowserCheck,
             },
           ],
         },
         {
-          title: 'Help Center',
+          title: 'Centro de Ayuda',
           url: '/help-center',
           icon: IconHelp,
         },

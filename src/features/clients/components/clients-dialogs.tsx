@@ -7,18 +7,18 @@ export function ClientsDialogs() {
   return (
     <>
       <ClientsActionDialog
-        key='client-add'
-        open={open === 'add'}
-        onOpenChange={() => setOpen('add')}
+        key='client-agregar'
+        open={open === 'agregar'}
+        onOpenChange={() => setOpen('agregar')}
       />
 
       {currentRow && (
         <>
           <ClientsActionDialog
-            key={`client-edit-${currentRow.id}`}
-            open={open === 'edit'}
+            key={`client-editar-${currentRow.id}`}
+            open={open === 'editar'}
             onOpenChange={() => {
-              setOpen('edit')
+              setOpen('editar')
               setTimeout(() => {
                 setCurrentRow(null)
               }, 500)
@@ -27,10 +27,10 @@ export function ClientsDialogs() {
           />
 
           <ClientsDeleteDialog
-            key={`client-delete-${currentRow.id}`}
-            open={open === 'delete'}
+            key={`client-eliminar-${currentRow.id}`}
+            open={open === 'eliminar'}
             onOpenChange={() => {
-              setOpen('delete')
+              setOpen('eliminar')
               setTimeout(() => {
                 setCurrentRow(null)
               }, 500)

@@ -27,7 +27,7 @@ export function SaleRowActions({ row }: Props) {
       <DropdownMenuContent align='end'>
         <DropdownMenuItem
           onClick={() => {
-            setOpen('edit')
+            setOpen('editar')
             setCurrentRow(row.original)
           }}
         >
@@ -36,7 +36,7 @@ export function SaleRowActions({ row }: Props) {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            setOpen('delete')
+            setOpen('eliminar')
             setCurrentRow(row.original)
           }}
           className='text-destructive'
