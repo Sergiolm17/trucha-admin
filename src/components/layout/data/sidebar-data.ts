@@ -179,33 +179,23 @@ export const sidebarData: SidebarData = {
           items: [
             {
               title: 'Perfil',
-              url: '/settings',
+              url: '/settings/profile',
               icon: IconUserCog,
-              hidden: false,
-            },
-            {
-              title: 'Cuenta',
-              url: '/settings/account',
-              icon: IconTool,
-              hidden: false,
-            },
-            {
-              title: 'Apariencia',
-              url: '/settings/appearance',
-              icon: IconPalette,
-              hidden: false,
             },
             {
               title: 'Notificaciones',
               url: '/settings/notifications',
               icon: IconNotification,
-              hidden: false,
+            },
+            {
+              title: 'Apariencia',
+              url: '/settings/appearance',
+              icon: IconPalette,
             },
             {
               title: 'Pantalla',
               url: '/settings/display',
               icon: IconBrowserCheck,
-              hidden: false,
             },
           ],
         },

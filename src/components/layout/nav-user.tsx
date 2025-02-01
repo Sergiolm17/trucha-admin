@@ -6,6 +6,7 @@ import {
   CreditCard,
   LogOut,
   Sparkles,
+  User,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -86,21 +87,21 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link to='/settings/account'>
-                  <BadgeCheck />
-                  Cuenta
+                <Link to='/settings/profile'>
+                  <User className='mr-2 h-4 w-4' />
+                  <span>Perfil</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings'>
-                  <CreditCard />
-                  Facturación
+                  <CreditCard className='mr-2 h-4 w-4' />
+                  <span>Facturación</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link to='/settings/notifications'>
-                  <Bell />
-                  Notificaciones
+                  <Bell className='mr-2 h-4 w-4' />
+                  <span>Notificaciones</span>
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
