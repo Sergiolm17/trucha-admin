@@ -29,16 +29,17 @@ export function SaleViewDialog({ open, onOpenChange, currentRow }: Props) {
     }
 
     currentRow.details.forEach((detail) => {
-      const size = detail.size
+      const size = detail.size.toLowerCase()
       const quantity = detail.quantity
       const price = detail.price
+      const subtotal = quantity * price
 
-      if (size === '600gr' || size === '3x kg') {
+      if (size === 's' || size === 'm' || size === 'l') {
         summary.comercial.quantity += quantity
-        summary.comercial.total += quantity * price
-      } else if (size === '4x kg' || size === '5x kg') {
+        summary.comercial.total += subtotal
+      } else if (size === 'xl' || size === 'xxl') {
         summary.grande.quantity += quantity
-        summary.grande.total += quantity * price
+        summary.grande.total += subtotal
       }
     })
 
@@ -46,7 +47,9 @@ export function SaleViewDialog({ open, onOpenChange, currentRow }: Props) {
   }
 
   const summary = calculateCategorySummary()
-  const totalGeneral = summary.comercial.total + summary.grande.total
+  const totalGeneral = currentRow.details.reduce((acc, detail) => {
+    return acc + detail.quantity * detail.price
+  }, 0)
 
   const handleDownload = async () => {
     const content = document.getElementById('sale-details-content')
