@@ -23,10 +23,14 @@ export function TeamSwitcher({
     name: string
     logo: React.ElementType
     plan: string
+    hidden?: boolean
   }[]
 }) {
   const { isMobile } = useSidebar()
-  const [activeTeam, setActiveTeam] = React.useState(teams[0])
+  const visibleTeams = teams.filter((team) => !team.hidden)
+  const [activeTeam, setActiveTeam] = React.useState(visibleTeams[0])
+
+  if (visibleTeams.length === 0) return null
 
   return (
     <SidebarMenu>
@@ -58,7 +62,7 @@ export function TeamSwitcher({
             <DropdownMenuLabel className='text-xs text-muted-foreground'>
               Teams
             </DropdownMenuLabel>
-            {teams.map((team, index) => (
+            {visibleTeams.map((team, index) => (
               <DropdownMenuItem
                 key={team.name}
                 onClick={() => setActiveTeam(team)}

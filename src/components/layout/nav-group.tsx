@@ -28,14 +28,21 @@ import {
 } from '../ui/dropdown-menu'
 import { NavCollapsible, NavItem, NavLink, type NavGroup } from './types'
 
-export function NavGroup({ title, items }: NavGroup) {
+export function NavGroup({ title, items, hidden }: NavGroup) {
   const { state } = useSidebar()
   const href = useLocation({ select: (location) => location.href })
+
+  if (hidden) return null
+
+  const visibleItems = items.filter((item) => !item.hidden)
+
+  if (visibleItems.length === 0) return null
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{title}</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => {
+        {visibleItems.map((item) => {
           const key = `${item.title}-${item.url}`
 
           if (!item.items)
@@ -84,6 +91,10 @@ const SidebarMenuCollapsible = ({
   href: string
 }) => {
   const { setOpenMobile } = useSidebar()
+  const visibleItems = item.items.filter((subItem) => !subItem.hidden)
+
+  if (visibleItems.length === 0) return null
+
   return (
     <Collapsible
       asChild
@@ -101,7 +112,7 @@ const SidebarMenuCollapsible = ({
         </CollapsibleTrigger>
         <CollapsibleContent className='CollapsibleContent'>
           <SidebarMenuSub>
-            {item.items.map((subItem) => (
+            {visibleItems.map((subItem) => (
               <SidebarMenuSubItem key={subItem.title}>
                 <SidebarMenuSubButton
                   asChild
@@ -129,6 +140,10 @@ const SidebarMenuCollapsedDropdown = ({
   item: NavCollapsible
   href: string
 }) => {
+  const visibleItems = item.items.filter((subItem) => !subItem.hidden)
+
+  if (visibleItems.length === 0) return null
+
   return (
     <SidebarMenuItem>
       <DropdownMenu>
@@ -148,7 +163,7 @@ const SidebarMenuCollapsedDropdown = ({
             {item.title} {item.badge ? `(${item.badge})` : ''}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {item.items.map((sub) => (
+          {visibleItems.map((sub) => (
             <DropdownMenuItem key={`${sub.title}-${sub.url}`} asChild>
               <Link
                 to={sub.url}

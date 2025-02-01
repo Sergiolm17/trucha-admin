@@ -31,9 +31,12 @@ export function NavUser({
     name: string
     email: string
     avatar: string
+    hidden: boolean
   }
 }) {
   const { isMobile } = useSidebar()
+
+  if (user.hidden) return null
 
   return (
     <SidebarMenu>

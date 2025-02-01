@@ -4,18 +4,21 @@ interface User {
   name: string
   email: string
   avatar: string
+  hidden: boolean
 }
 
 interface Team {
   name: string
   logo: React.ElementType
   plan: string
+  hidden?: boolean
 }
 
 interface BaseNavItem {
   title: string
   badge?: string
   icon?: React.ElementType
+  hidden?: boolean
 }
 
 type NavLink = BaseNavItem & {
@@ -33,6 +36,7 @@ type NavItem = NavCollapsible | NavLink
 interface NavGroup {
   title: string
   items: NavItem[]
+  hidden?: boolean
 }
 
 interface SidebarData {

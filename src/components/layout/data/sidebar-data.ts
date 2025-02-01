@@ -28,22 +28,26 @@ export const sidebarData: SidebarData = {
     name: 'satnaing',
     email: 'satnaingdev@gmail.com',
     avatar: '/avatars/shadcn.jpg',
+    hidden: true,
   },
   teams: [
     {
       name: 'Shadcn Admin',
       logo: Command,
       plan: 'Vite + ShadcnUI',
+      hidden: true,
     },
     {
       name: 'Acme Inc',
       logo: GalleryVerticalEnd,
       plan: 'Enterprise',
+      hidden: true,
     },
     {
       name: 'Acme Corp.',
       logo: AudioWaveform,
       plan: 'Startup',
+      hidden: true,
     },
   ],
   navGroups: [
@@ -54,11 +58,13 @@ export const sidebarData: SidebarData = {
           title: 'Panel',
           url: '/',
           icon: IconLayoutDashboard,
+          hidden: true,
         },
         {
           title: 'Tareas',
           url: '/tasks',
           icon: IconChecklist,
+          hidden: true,
         },
         {
           title: 'Clientes',
@@ -69,17 +75,20 @@ export const sidebarData: SidebarData = {
           title: 'Usuarios',
           url: '/users',
           icon: IconUsers,
+          hidden: true,
         },
         {
           title: 'Aplicaciones',
           url: '/apps',
           icon: IconPackages,
+          hidden: true,
         },
         {
           title: 'Mensajes',
           url: '/chats',
           badge: '3',
           icon: IconMessages,
+          hidden: true,
         },
         {
           title: 'Tallas',
@@ -100,6 +109,7 @@ export const sidebarData: SidebarData = {
     },
     {
       title: 'Páginas',
+      hidden: true,
       items: [
         {
           title: 'Autenticación',
@@ -171,26 +181,31 @@ export const sidebarData: SidebarData = {
               title: 'Perfil',
               url: '/settings',
               icon: IconUserCog,
+              hidden: false,
             },
             {
               title: 'Cuenta',
               url: '/settings/account',
               icon: IconTool,
+              hidden: false,
             },
             {
               title: 'Apariencia',
               url: '/settings/appearance',
               icon: IconPalette,
+              hidden: false,
             },
             {
               title: 'Notificaciones',
               url: '/settings/notifications',
               icon: IconNotification,
+              hidden: false,
             },
             {
               title: 'Pantalla',
               url: '/settings/display',
               icon: IconBrowserCheck,
+              hidden: false,
             },
           ],
         },
@@ -198,6 +213,7 @@ export const sidebarData: SidebarData = {
           title: 'Centro de Ayuda',
           url: '/help-center',
           icon: IconHelp,
+          hidden: true,
         },
       ],
     },
