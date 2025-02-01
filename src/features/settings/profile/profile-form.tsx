@@ -28,21 +28,22 @@ const profileFormSchema = z.object({
   username: z
     .string()
     .min(2, {
-      message: 'Username must be at least 2 characters.',
+      message: 'El nombre de usuario debe tener al menos 2 caracteres.',
     })
     .max(30, {
-      message: 'Username must not be longer than 30 characters.',
+      message: 'El nombre de usuario no debe tener más de 30 caracteres.',
     }),
   email: z
     .string({
-      required_error: 'Please select an email to display.',
+      required_error:
+        'Por favor selecciona un correo electrónico para mostrar.',
     })
     .email(),
   bio: z.string().max(160).min(4),
   urls: z
     .array(
       z.object({
-        value: z.string().url({ message: 'Please enter a valid URL.' }),
+        value: z.string().url({ message: 'Por favor ingresa una URL válida.' }),
       })
     )
     .optional(),
@@ -52,7 +53,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 
 // This can come from your database or API.
 const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
+  bio: 'Tengo una computadora.',
   urls: [
     { value: 'https://shadcn.com' },
     { value: 'http://twitter.com/shadcn' },
@@ -73,7 +74,7 @@ export default function ProfileForm() {
 
   function onSubmit(data: ProfileFormValues) {
     toast({
-      title: 'You submitted the following values:',
+      title: 'Has enviado los siguientes valores:',
       description: (
         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
           <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
@@ -90,13 +91,13 @@ export default function ProfileForm() {
           name='username'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Nombre de usuario</FormLabel>
               <FormControl>
                 <Input placeholder='shadcn' {...field} />
               </FormControl>
               <FormDescription>
-                This is your public display name. It can be your real name or a
-                pseudonym. You can only change this once every 30 days.
+                Este es tu nombre público. Puede ser tu nombre real o un
+                seudónimo. Solo puedes cambiarlo una vez cada 30 días.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -107,11 +108,11 @@ export default function ProfileForm() {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Correo electrónico</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder='Select a verified email to display' />
+                    <SelectValue placeholder='Selecciona un correo electrónico verificado' />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -121,8 +122,8 @@ export default function ProfileForm() {
                 </SelectContent>
               </Select>
               <FormDescription>
-                You can manage verified email addresses in your{' '}
-                <Link to='/'>email settings</Link>.
+                Puedes administrar tus correos electrónicos verificados en tu{' '}
+                <Link to='/'>configuración de correo</Link>.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -133,17 +134,17 @@ export default function ProfileForm() {
           name='bio'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Bio</FormLabel>
+              <FormLabel>Biografía</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder='Tell us a little bit about yourself'
+                  placeholder='Cuéntanos un poco sobre ti'
                   className='resize-none'
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations to
-                link to them.
+                Puedes usar <span>@menciones</span> para vincular a otros
+                usuarios y organizaciones.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -161,7 +162,8 @@ export default function ProfileForm() {
                     URLs
                   </FormLabel>
                   <FormDescription className={cn(index !== 0 && 'sr-only')}>
-                    Add links to your website, blog, or social media profiles.
+                    Agrega enlaces a tu sitio web, blog o perfiles de redes
+                    sociales.
                   </FormDescription>
                   <FormControl>
                     <Input {...field} />
@@ -178,10 +180,10 @@ export default function ProfileForm() {
             className='mt-2'
             onClick={() => append({ value: '' })}
           >
-            Add URL
+            Agregar URL
           </Button>
         </div>
-        <Button type='submit'>Update profile</Button>
+        <Button type='submit'>Actualizar perfil</Button>
       </form>
     </Form>
   )
